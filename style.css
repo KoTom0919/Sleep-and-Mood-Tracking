@@ -1127,7 +1127,7 @@ body.record-view .app {
 
         gap: 10px;
 
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
 
 
@@ -1183,7 +1183,7 @@ body.record-view .app {
 
     .arrow-button,
     .date-button {
-        height: 70px;
+        height: 50px;
     }
 
     .date-button {
@@ -1745,6 +1745,510 @@ body.record-view .app {
                 175px +
                 env(safe-area-inset-bottom)
             );
+    }
+
+}
+/* =========================================================
+   スマホ表示の調整
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    /* -----------------------------------------------------
+       ページ全体
+    ----------------------------------------------------- */
+
+    .app {
+        padding:
+            8px
+            7px
+            105px;
+    }
+
+
+    /* -----------------------------------------------------
+       「睡眠＆体調記録」タイトル周辺
+    ----------------------------------------------------- */
+
+    .main-title {
+        margin:
+            2px
+            0
+            10px;
+
+        font-size: 30px;
+
+        line-height: 1.2;
+    }
+
+
+    /* -----------------------------------------------------
+       各項目の間隔
+    ----------------------------------------------------- */
+
+    .date-section {
+        margin-bottom: 18px;
+    }
+
+
+    .sleep-section {
+        margin-bottom: 22px;
+    }
+
+
+    .status-row {
+        margin-bottom: 22px;
+    }
+
+
+    /* -----------------------------------------------------
+       日付ボタン
+    ----------------------------------------------------- */
+
+    .date-navigation {
+        grid-template-columns:
+            50px
+            minmax(0, 1fr)
+            50px;
+
+        gap: 7px;
+    }
+
+
+    .arrow-button,
+    .date-button {
+        height: 50px;
+
+        min-height: 50px;
+    }
+
+
+    .date-button {
+        min-width: 0;
+
+        padding:
+            2px
+            6px;
+
+        font-size: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       日付選択ポップアップ
+    ----------------------------------------------------- */
+
+    .popup {
+        left: 50%;
+
+        width:
+            calc(100% - 14px);
+
+        max-width: 340px;
+
+        padding: 12px;
+
+        transform:
+            translateX(-50%);
+    }
+
+
+    .popup input[type="date"] {
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        height: 44px;
+
+        padding:
+            2px
+            6px;
+
+        box-sizing: border-box;
+
+        font-size: 15px;
+    }
+
+
+    .quick-date-buttons,
+    .popup-actions {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        width: 100%;
+
+        gap: 7px;
+    }
+
+
+    .quick-date-buttons button,
+    .popup-actions button {
+        width: 100%;
+        min-width: 0;
+        min-height: 42px;
+
+        padding:
+            3px
+            4px;
+
+        box-sizing: border-box;
+
+        font-size: 13px;
+    }
+
+
+    /* キャンセルを1行で表示 */
+
+    .cancel-button {
+        white-space: nowrap;
+
+        font-size: 11px;
+    }
+
+
+    /* -----------------------------------------------------
+       就寝・起床時刻
+    ----------------------------------------------------- */
+
+    .two-column {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        gap: 7px;
+    }
+
+
+    .time-field {
+        min-width: 0;
+    }
+
+
+    .time-display-button,
+    .choice-button {
+        width: 100%;
+        height: 50px;
+        min-height: 50px;
+        min-width: 0;
+
+        padding:
+            2px
+            5px;
+
+        font-size: 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       時刻入力ポップアップ
+    ----------------------------------------------------- */
+
+    .time-popup {
+        left: 0;
+        right: auto;
+
+        width: 100%;
+        min-width: 0;
+
+        padding: 8px;
+
+        box-sizing: border-box;
+    }
+
+
+    /*
+     * 起床時刻側のポップアップは
+     * 右端を基準に配置
+     */
+
+    .time-field:nth-child(2) .time-popup {
+        left: auto;
+        right: 0;
+    }
+
+
+    .time-popup input[type="time"] {
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        height: 44px;
+
+        margin:
+            8px
+            0;
+
+        padding:
+            2px
+            4px;
+
+        box-sizing: border-box;
+
+        font-size: 15px;
+    }
+
+
+    .now-button {
+        width: 100%;
+        min-width: 0;
+        min-height: 40px;
+
+        padding:
+            3px;
+
+        font-size: 11px;
+
+        white-space: nowrap;
+    }
+
+
+    .time-popup-actions {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        width: 100%;
+
+        gap: 4px;
+    }
+
+
+    .time-popup-actions button {
+        width: 100%;
+        min-width: 0;
+        min-height: 40px;
+
+        padding:
+            2px;
+
+        font-size: 10px;
+
+        white-space: nowrap;
+    }
+
+
+    /* -----------------------------------------------------
+       睡眠満足度と気分
+    ----------------------------------------------------- */
+
+    .choice-section {
+        min-width: 0;
+    }
+
+
+    .choice-button {
+        height: 50px;
+    }
+
+
+    .choice-menu {
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    .choice-menu button {
+        min-height: 42px;
+
+        padding:
+            3px;
+
+        font-size: 11px;
+    }
+
+
+    /* -----------------------------------------------------
+       一覧画面の表示期間
+    ----------------------------------------------------- */
+
+    .list-period-section {
+        width: 100%;
+
+        padding:
+            10px
+            12px;
+    }
+
+
+    .list-period-inputs {
+        display: grid;
+
+        grid-template-columns:
+            1fr;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+
+    .list-period-inputs label {
+        width: 100%;
+
+        justify-items: center;
+
+        font-size: 13px;
+    }
+
+
+    .list-period-inputs input {
+        width: min(100%, 220px);
+        max-width: 220px;
+        min-width: 0;
+
+        height: 40px;
+
+        padding:
+            2px
+            6px;
+
+        box-sizing: border-box;
+
+        font-size: 14px;
+    }
+
+
+    .list-period-inputs .period-symbol {
+        display: none;
+    }
+
+
+    .update-list-button {
+        grid-column: 1;
+
+        width: 90px;
+        min-width: 90px;
+        height: 40px;
+
+        margin:
+            3px
+            auto
+            0;
+
+        padding:
+            0
+            8px;
+    }
+
+
+    /* -----------------------------------------------------
+       推移画面のタイトル
+    ----------------------------------------------------- */
+
+    .trend-header {
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+
+        gap: 6px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .trend-main-title {
+        grid-column: 1;
+
+        margin: 0;
+
+        font-size: 21px;
+
+        line-height: 1.25;
+    }
+
+
+    .trend-print-button {
+        grid-column: 2;
+
+        width: 100px;
+        height: 45px;
+
+        padding:
+            2px
+            5px;
+
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       推移画面の表示期間
+    ----------------------------------------------------- */
+
+    .trend-period-section {
+        width: 100%;
+
+        padding:
+            10px
+            12px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .trend-period-inputs {
+        display: grid;
+
+        grid-template-columns:
+            1fr;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+
+    .trend-period-inputs label {
+        width: 100%;
+
+        justify-items: center;
+
+        font-size: 13px;
+    }
+
+
+    .trend-period-inputs input {
+        width: min(100%, 220px);
+        max-width: 220px;
+        min-width: 0;
+
+        height: 40px;
+
+        padding:
+            2px
+            6px;
+
+        box-sizing: border-box;
+
+        font-size: 14px;
+    }
+
+
+    .trend-period-inputs .period-symbol {
+        display: none;
+    }
+
+
+    .update-trend-button {
+        grid-column: 1;
+
+        width: 90px;
+        min-width: 90px;
+        height: 40px;
+
+        margin:
+            3px
+            auto
+            0;
+
+        padding:
+            0
+            8px;
     }
 
 }
