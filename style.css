@@ -2280,11 +2280,11 @@ body.record-view .app {
         display: block;
 
         width:
-            calc(100% - 6px);
+            calc(100% - 12px);
 
         min-width: 0;
         max-width:
-            calc(100% - 6px);
+            calc(100% - 12px);
 
         height: 44px;
 
@@ -2310,11 +2310,11 @@ body.record-view .app {
         display: block;
 
         width:
-            calc(100% - 6px);
+            calc(100% - 12px);
 
         min-width: 0;
         max-width:
-            calc(100% - 6px);
+            calc(100% - 12px);
 
         height: 44px;
 
