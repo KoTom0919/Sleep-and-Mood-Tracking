@@ -504,22 +504,121 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function confirmTime(
-        menu,
-        input,
-        button
+function confirmTime(
+    menu,
+    input,
+    button
+) {
+
+    const time =
+        normalizeTimeInput(
+            input.value
+        );
+
+    if (
+        input.value.trim() !== "" &&
+        time === null
     ) {
 
-        button.textContent =
-            input.value ||
-            "○○：○○";
+        showMessage(
+            "時刻を00:00～23:59で入力してください",
+            "error"
+        );
 
-        menu.hidden = true;
+        input.focus();
 
-        hideMessage();
+        return;
 
     }
 
+    button.textContent =
+        time ||
+        "○○：○○";
+
+    input.value =
+        time || "";
+
+    menu.hidden = true;
+
+    hideMessage();
+
+}
+function normalizeTimeInput(value) {
+
+    const text =
+        value
+            .trim()
+            .replace(/[０-９]/g, function (digit) {
+
+                return String.fromCharCode(
+                    digit.charCodeAt(0) - 65248
+                );
+
+            })
+            .replace(/：/g, ":");
+
+    let hours;
+    let minutes;
+
+    /*
+     * 「700」「2300」のように
+     * 数字だけで入力した場合
+     */
+    if (/^\d{3,4}$/.test(text)) {
+
+        hours =
+            text.slice(0, -2);
+
+        minutes =
+            text.slice(-2);
+
+    } else {
+
+        /*
+         * 「7:00」「23:00」のように
+         * コロンを入れて入力した場合
+         */
+        const parts =
+            text.match(
+                /^(\d{1,2}):(\d{1,2})$/
+            );
+
+        if (!parts) {
+            return null;
+        }
+
+        hours =
+            parts[1];
+
+        minutes =
+            parts[2];
+
+    }
+
+    const hourNumber =
+        Number(hours);
+
+    const minuteNumber =
+        Number(minutes);
+
+    if (
+        hourNumber < 0 ||
+        hourNumber > 23 ||
+        minuteNumber < 0 ||
+        minuteNumber > 59
+    ) {
+
+        return null;
+
+    }
+
+    return (
+        String(hourNumber).padStart(2, "0") +
+        ":" +
+        String(minuteNumber).padStart(2, "0")
+    );
+
+}
 
     /* =================================================
        ポップアップ
@@ -540,42 +639,65 @@ document.addEventListener("DOMContentLoaded", function () {
        メッセージ
     ================================================= */
 
-    function showMessage(
-        message,
-        type = "save"
-    ) {
+function showMessage(
+    message,
+    type = "save"
+) {
 
-        window.clearTimeout(
-            messageTimer
+    window.clearTimeout(
+        messageTimer
+    );
+
+    saveMessage.textContent =
+        message;
+
+    saveMessage.classList.toggle(
+        "clear-message",
+        type === "clear" ||
+        type === "error"
+    );
+
+    saveMessage.classList.add(
+        "show-message"
+    );
+
+    messageTimer =
+        window.setTimeout(
+            hideMessage,
+            3000
         );
 
-        saveMessage.textContent =
-            message;
-
-        saveMessage.classList.toggle(
-            "clear-message",
-            type === "clear" ||
-            type === "error"
-        );
-
-        messageTimer =
-            window.setTimeout(
-                hideMessage,
-                3000
-            );
-
-    }
+}
 
 
-    function hideMessage() {
+function hideMessage() {
 
-        saveMessage.textContent = "";
+    saveMessage.classList.remove(
+        "show-message"
+    );
 
-        saveMessage.classList.remove(
-            "clear-message"
-        );
+    window.setTimeout(
+        function () {
 
-    }
+            if (
+                !saveMessage.classList.contains(
+                    "show-message"
+                )
+            ) {
+
+                saveMessage.textContent = "";
+
+                saveMessage.classList.remove(
+                    "clear-message"
+                );
+
+            }
+
+        },
+        250
+    );
+
+}
 
 
     /* =================================================

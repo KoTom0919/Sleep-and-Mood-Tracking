@@ -113,7 +113,8 @@
                                 就寝時刻を選択
                             </label>
 
-                            <input type="time" id="bedtime-input">
+                            <input type="text" id="bedtime-input" class="time-input" inputmode="numeric" maxlength="5"
+                                placeholder="例：23:00" autocomplete="off">
 
                             <button type="button" id="bedtime-now" class="now-button">
                                 現在時刻を入力
@@ -154,7 +155,8 @@
                                 起床時刻を選択
                             </label>
 
-                            <input type="time" id="wake-time-input">
+                            <input type="text" id="wake-time-input" class="time-input" inputmode="numeric" maxlength="5"
+                                placeholder="例：07:00" autocomplete="off">
 
                             <button type="button" id="wake-time-now" class="now-button">
                                 現在時刻を入力
