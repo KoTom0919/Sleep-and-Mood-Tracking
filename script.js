@@ -1,12 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const STORAGE_KEY = "sleepRecords";
+    const CONDITION_SETTINGS_KEY =
+    "sleepConditionSettings";
+
+const DEFAULT_CONDITION_SETTINGS = [
+    {
+        key: "dizziness",
+        label: "めまい・ふらつき"
+    },
+    {
+        key: "irritation",
+        label: "イライラ"
+    },
+    {
+        key: "nausea",
+        label: "吐気・腹痛"
+    },
+    {
+        key: "sleepiness",
+        label: "眠気"
+    },
+    {
+        key: "fatigue",
+        label: "倦怠感"
+    },
+    {
+        key: "headache",
+        label: "頭痛"
+    }
+];
 
     let records = readRecords();
     let selectedDate = formatDate(new Date());
     let selectedSatisfaction = null;
     let selectedMood = null;
     let messageTimer = null;
+    let conditionSettings =
+    readConditionSettings();
 
     let sleepChart = null;
     let moodChart = null;
@@ -99,6 +130,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const memoInput =
         document.getElementById("memo-input");
+    
+        const conditionSettingsButton =
+    document.getElementById(
+        "condition-settings-button"
+    );
+
+const conditionSettingsOverlay =
+    document.getElementById(
+        "condition-settings-overlay"
+    );
+
+const conditionSettingsInputs =
+    document.getElementById(
+        "condition-settings-inputs"
+    );
+
+const conditionSettingsCancel =
+    document.getElementById(
+        "condition-settings-cancel"
+    );
+
+const conditionSettingsSave =
+    document.getElementById(
+        "condition-settings-save"
+    );
 
 
     /* 記録・クリア */
@@ -218,6 +274,307 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     }
+    /* =================================================
+   体調チェック項目の設定
+================================================= */
+
+function readConditionSettings() {
+
+    try {
+
+        const savedData =
+            localStorage.getItem(
+                CONDITION_SETTINGS_KEY
+            );
+
+        if (!savedData) {
+
+            return DEFAULT_CONDITION_SETTINGS.map(
+                function (item) {
+
+                    return {
+                        ...item
+                    };
+
+                }
+            );
+
+        }
+
+        const parsedData =
+            JSON.parse(savedData);
+
+        if (
+            !Array.isArray(parsedData) ||
+            parsedData.length !== 6
+        ) {
+
+            throw new Error(
+                "体調チェック設定の形式が不正です"
+            );
+
+        }
+
+        return DEFAULT_CONDITION_SETTINGS.map(
+            function (defaultItem) {
+
+                const savedItem =
+                    parsedData.find(
+                        function (item) {
+
+                            return (
+                                item.key ===
+                                defaultItem.key
+                            );
+
+                        }
+                    );
+
+                const savedLabel =
+                    savedItem
+                        ? String(
+                            savedItem.label || ""
+                        ).trim()
+                        : "";
+
+                return {
+                    key: defaultItem.key,
+
+                    label:
+                        savedLabel ||
+                        defaultItem.label
+                };
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "体調チェック設定を読み込めませんでした。",
+            error
+        );
+
+        return DEFAULT_CONDITION_SETTINGS.map(
+            function (item) {
+
+                return {
+                    ...item
+                };
+
+            }
+        );
+
+    }
+
+}
+
+
+function saveConditionSettings() {
+
+    try {
+
+        localStorage.setItem(
+            CONDITION_SETTINGS_KEY,
+            JSON.stringify(
+                conditionSettings
+            )
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "体調チェック設定を保存できませんでした。",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+function applyConditionSettings() {
+
+    conditionSettings.forEach(
+        function (item) {
+
+            const recordLabel =
+                document.querySelector(
+                    `[data-condition-label="${item.key}"]`
+                );
+
+            const tableHeading =
+                document.querySelector(
+                    `[data-condition-heading="${item.key}"]`
+                );
+
+            if (recordLabel) {
+
+                recordLabel.textContent =
+                    item.label;
+
+            }
+
+            if (tableHeading) {
+
+                tableHeading.textContent =
+                    item.label;
+
+            }
+
+        }
+    );
+
+}
+
+
+function openConditionSettings() {
+
+    conditionSettingsInputs.innerHTML = "";
+
+    conditionSettings.forEach(
+        function (item, index) {
+
+            const label =
+                document.createElement("label");
+
+            const labelText =
+                document.createElement("span");
+
+            labelText.textContent =
+                `項目${index + 1}`;
+
+            const input =
+                document.createElement("input");
+
+            input.type = "text";
+            input.maxLength = 30;
+            input.value = item.label;
+
+            input.dataset.conditionSettingKey =
+                item.key;
+
+            label.append(
+                labelText,
+                input
+            );
+
+            conditionSettingsInputs
+                .appendChild(label);
+
+        }
+    );
+
+    conditionSettingsOverlay.hidden =
+        false;
+
+    const firstInput =
+        conditionSettingsInputs
+            .querySelector("input");
+
+    if (firstInput) {
+
+        firstInput.focus();
+        firstInput.select();
+
+    }
+
+}
+
+
+function closeConditionSettings() {
+
+    conditionSettingsOverlay.hidden =
+        true;
+
+}
+
+
+function confirmConditionSettings() {
+
+    const inputs = [
+        ...conditionSettingsInputs
+            .querySelectorAll("input")
+    ];
+
+    const hasEmptyItem =
+        inputs.some(
+            function (input) {
+
+                return !input.value.trim();
+
+            }
+        );
+
+    if (hasEmptyItem) {
+
+        showMessage(
+            "体調チェックの項目名をすべて入力してください",
+            "error"
+        );
+
+        return;
+
+    }
+
+    conditionSettings =
+        conditionSettings.map(
+            function (item) {
+
+                const input =
+                    inputs.find(
+                        function (target) {
+
+                            return (
+                                target.dataset
+                                    .conditionSettingKey ===
+                                item.key
+                            );
+
+                        }
+                    );
+
+                return {
+                    key: item.key,
+
+                    label:
+                        input
+                            ? input.value.trim()
+                            : item.label
+                };
+
+            }
+        );
+
+    if (!saveConditionSettings()) {
+
+        showMessage(
+            "設定を保存できませんでした",
+            "error"
+        );
+
+        return;
+
+    }
+
+    applyConditionSettings();
+    closeConditionSettings();
+
+    if (!listPage.hidden) {
+
+        renderRecordsTable();
+
+    }
+
+    showMessage(
+        "体調チェックの設定を保存しました"
+    );
+
+}
 
 
     /* =================================================
@@ -2551,7 +2908,59 @@ function hideMessage() {
         }
     );
 
+/* =================================================
+   体調チェック設定のボタン
+================================================= */
 
+if (conditionSettingsButton) {
+
+    conditionSettingsButton.addEventListener(
+        "click",
+        openConditionSettings
+    );
+
+}
+
+
+if (conditionSettingsCancel) {
+
+    conditionSettingsCancel.addEventListener(
+        "click",
+        closeConditionSettings
+    );
+
+}
+
+
+if (conditionSettingsSave) {
+
+    conditionSettingsSave.addEventListener(
+        "click",
+        confirmConditionSettings
+    );
+
+}
+
+
+if (conditionSettingsOverlay) {
+
+    conditionSettingsOverlay.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                conditionSettingsOverlay
+            ) {
+
+                closeConditionSettings();
+
+            }
+
+        }
+    );
+
+}
     /* =================================================
        枠外クリック
     ================================================= */
@@ -2604,14 +3013,16 @@ function hideMessage() {
     );
 
 
-    /* =================================================
-       初期表示
-    ================================================= */
+/* =================================================
+   初期表示
+================================================= */
 
-    changeSelectedDate(
-        selectedDate
-    );
+applyConditionSettings();
 
-    showRecordPage();
+changeSelectedDate(
+    selectedDate
+);
+
+showRecordPage();
 
 });

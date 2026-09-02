@@ -2,15 +2,23 @@
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         睡眠＆体調記録アプリ
     </title>
 
-    <link rel="stylesheet" href="style.css?v=2">
+    <link
+        rel="stylesheet"
+        href="style.css?v=3"
+    >
+
 </head>
 
 <body>
@@ -23,9 +31,77 @@
 
         <section id="record-page" class="page">
 
-            <h1 class="main-title">
-                睡眠＆体調記録
-            </h1>
+            <!-- タイトルと設定ボタン -->
+
+            <div class="record-header">
+
+                <h1 class="main-title">
+                    睡眠＆体調記録
+                </h1>
+
+                <button
+                    type="button"
+                    id="condition-settings-button"
+                    class="settings-button"
+                >
+                    設定
+                </button>
+
+            </div>
+
+
+            <!-- 体調チェック項目の設定画面 -->
+
+            <div
+                id="condition-settings-overlay"
+                class="settings-overlay"
+                hidden
+            >
+
+                <section
+                    class="settings-dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="condition-settings-title"
+                >
+
+                    <h2 id="condition-settings-title">
+                        体調チェックの設定
+                    </h2>
+
+                    <p class="settings-description">
+                        6項目の名前を自由に変更できます
+                    </p>
+
+                    <div
+                        id="condition-settings-inputs"
+                        class="settings-inputs"
+                    >
+                    </div>
+
+                    <div class="settings-actions">
+
+                        <button
+                            type="button"
+                            id="condition-settings-cancel"
+                            class="cancel-button"
+                        >
+                            キャンセル
+                        </button>
+
+                        <button
+                            type="button"
+                            id="condition-settings-save"
+                            class="confirm-button"
+                        >
+                            保存
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
 
 
             <!-- 編集する日付 -->
@@ -38,13 +114,27 @@
 
                 <div class="date-navigation">
 
-                    <button type="button" id="previous-day" class="arrow-button previous-button" aria-label="前日">
+                    <button
+                        type="button"
+                        id="previous-day"
+                        class="arrow-button previous-button"
+                        aria-label="前日"
+                    >
                     </button>
 
-                    <button type="button" id="edit-date-button" class="date-button">
+                    <button
+                        type="button"
+                        id="edit-date-button"
+                        class="date-button"
+                    >
                     </button>
 
-                    <button type="button" id="next-day" class="arrow-button next-button" aria-label="翌日">
+                    <button
+                        type="button"
+                        id="next-day"
+                        class="arrow-button next-button"
+                        aria-label="翌日"
+                    >
                     </button>
 
                 </div>
@@ -52,21 +142,34 @@
 
                 <!-- 日付選択画面 -->
 
-                <div id="date-menu" class="popup" hidden>
+                <div
+                    id="date-menu"
+                    class="popup"
+                    hidden
+                >
 
                     <label for="edit-date-input">
                         日付を選択
                     </label>
 
-                    <input type="date" id="edit-date-input">
+                    <input
+                        type="date"
+                        id="edit-date-input"
+                    >
 
                     <div class="quick-date-buttons">
 
-                        <button type="button" id="today-button">
+                        <button
+                            type="button"
+                            id="today-button"
+                        >
                             今日
                         </button>
 
-                        <button type="button" id="tomorrow-button">
+                        <button
+                            type="button"
+                            id="tomorrow-button"
+                        >
                             明日
                         </button>
 
@@ -74,11 +177,19 @@
 
                     <div class="popup-actions">
 
-                        <button type="button" id="date-cancel" class="cancel-button">
+                        <button
+                            type="button"
+                            id="date-cancel"
+                            class="cancel-button"
+                        >
                             キャンセル
                         </button>
 
-                        <button type="button" id="date-confirm" class="confirm-button">
+                        <button
+                            type="button"
+                            id="date-confirm"
+                            class="confirm-button"
+                        >
                             決定
                         </button>
 
@@ -103,30 +214,57 @@
                             昨夜の就寝時刻
                         </h2>
 
-                        <button type="button" id="bedtime-button" class="time-display-button bedtime-button">
+                        <button
+                            type="button"
+                            id="bedtime-button"
+                            class="time-display-button bedtime-button"
+                        >
                             ○○：○○
                         </button>
 
-                        <div id="bedtime-menu" class="time-popup" hidden>
+                        <div
+                            id="bedtime-menu"
+                            class="time-popup"
+                            hidden
+                        >
 
                             <label for="bedtime-input">
                                 就寝時刻を選択
                             </label>
 
-                            <input type="text" id="bedtime-input" class="time-input" inputmode="numeric" maxlength="5"
-                                placeholder="例：23:00" autocomplete="off">
+                            <input
+                                type="text"
+                                id="bedtime-input"
+                                class="time-input"
+                                inputmode="numeric"
+                                maxlength="5"
+                                placeholder="例：23:00"
+                                autocomplete="off"
+                            >
 
-                            <button type="button" id="bedtime-now" class="now-button">
+                            <button
+                                type="button"
+                                id="bedtime-now"
+                                class="now-button"
+                            >
                                 現在時刻を入力
                             </button>
 
                             <div class="time-popup-actions">
 
-                                <button type="button" id="bedtime-cancel" class="cancel-button">
+                                <button
+                                    type="button"
+                                    id="bedtime-cancel"
+                                    class="cancel-button"
+                                >
                                     キャンセル
                                 </button>
 
-                                <button type="button" id="bedtime-confirm" class="confirm-button">
+                                <button
+                                    type="button"
+                                    id="bedtime-confirm"
+                                    class="confirm-button"
+                                >
                                     決定
                                 </button>
 
@@ -145,30 +283,57 @@
                             本日の起床時刻
                         </h2>
 
-                        <button type="button" id="wake-time-button" class="time-display-button wake-button">
+                        <button
+                            type="button"
+                            id="wake-time-button"
+                            class="time-display-button wake-button"
+                        >
                             ○○：○○
                         </button>
 
-                        <div id="wake-time-menu" class="time-popup" hidden>
+                        <div
+                            id="wake-time-menu"
+                            class="time-popup"
+                            hidden
+                        >
 
                             <label for="wake-time-input">
                                 起床時刻を選択
                             </label>
 
-                            <input type="text" id="wake-time-input" class="time-input" inputmode="numeric" maxlength="5"
-                                placeholder="例：07:00" autocomplete="off">
+                            <input
+                                type="text"
+                                id="wake-time-input"
+                                class="time-input"
+                                inputmode="numeric"
+                                maxlength="5"
+                                placeholder="例：07:00"
+                                autocomplete="off"
+                            >
 
-                            <button type="button" id="wake-time-now" class="now-button">
+                            <button
+                                type="button"
+                                id="wake-time-now"
+                                class="now-button"
+                            >
                                 現在時刻を入力
                             </button>
 
                             <div class="time-popup-actions">
 
-                                <button type="button" id="wake-time-cancel" class="cancel-button">
+                                <button
+                                    type="button"
+                                    id="wake-time-cancel"
+                                    class="cancel-button"
+                                >
                                     キャンセル
                                 </button>
 
-                                <button type="button" id="wake-time-confirm" class="confirm-button">
+                                <button
+                                    type="button"
+                                    id="wake-time-confirm"
+                                    class="confirm-button"
+                                >
                                     決定
                                 </button>
 
@@ -195,25 +360,45 @@
                         睡眠満足度
                     </h2>
 
-                    <button type="button" id="satisfaction-button" class="choice-button">
+                    <button
+                        type="button"
+                        id="satisfaction-button"
+                        class="choice-button"
+                    >
                         －
                     </button>
 
-                    <div id="satisfaction-menu" class="choice-menu" hidden>
+                    <div
+                        id="satisfaction-menu"
+                        class="choice-menu"
+                        hidden
+                    >
 
-                        <button type="button" data-value="とてもよく眠れた">
+                        <button
+                            type="button"
+                            data-value="とてもよく眠れた"
+                        >
                             とてもよく眠れた
                         </button>
 
-                        <button type="button" data-value="よく眠れた">
+                        <button
+                            type="button"
+                            data-value="よく眠れた"
+                        >
                             よく眠れた
                         </button>
 
-                        <button type="button" data-value="あまり眠れていない">
+                        <button
+                            type="button"
+                            data-value="あまり眠れていない"
+                        >
                             あまり眠れていない
                         </button>
 
-                        <button type="button" data-value="ほとんど眠れていない">
+                        <button
+                            type="button"
+                            data-value="ほとんど眠れていない"
+                        >
                             ほとんど眠れていない
                         </button>
 
@@ -230,37 +415,66 @@
                         気分
                     </h2>
 
-                    <button type="button" id="mood-button" class="choice-button">
+                    <button
+                        type="button"
+                        id="mood-button"
+                        class="choice-button"
+                    >
                         －
                     </button>
 
-                    <div id="mood-menu" class="choice-menu mood-menu" hidden>
+                    <div
+                        id="mood-menu"
+                        class="choice-menu mood-menu"
+                        hidden
+                    >
 
-                        <button type="button" data-value="3">
+                        <button
+                            type="button"
+                            data-value="3"
+                        >
                             3
                         </button>
 
-                        <button type="button" data-value="2">
+                        <button
+                            type="button"
+                            data-value="2"
+                        >
                             2
                         </button>
 
-                        <button type="button" data-value="1">
+                        <button
+                            type="button"
+                            data-value="1"
+                        >
                             1
                         </button>
 
-                        <button type="button" data-value="0">
+                        <button
+                            type="button"
+                            data-value="0"
+                        >
                             0
                         </button>
 
-                        <button type="button" data-value="-1">
+                        <button
+                            type="button"
+                            data-value="-1"
+                        >
                             -1
                         </button>
 
-                        <button type="button" data-value="-2">
+                        <button
+                            type="button"
+                            data-value="-2"
+                        >
                             -2
                         </button>
 
-                        <button type="button" data-value="-3">
+                        <button
+                            type="button"
+                            data-value="-3"
+                        >
                             -3
                         </button>
 
@@ -283,66 +497,84 @@
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="dizziness">
                             めまい・ふらつき
                         </span>
 
-                        <input type="checkbox" data-condition="dizziness">
+                        <input
+                            type="checkbox"
+                            data-condition="dizziness"
+                        >
 
                     </label>
 
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="irritation">
                             イライラ
                         </span>
 
-                        <input type="checkbox" data-condition="irritation">
+                        <input
+                            type="checkbox"
+                            data-condition="irritation"
+                        >
 
                     </label>
 
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="nausea">
                             吐気・腹痛
                         </span>
 
-                        <input type="checkbox" data-condition="nausea">
+                        <input
+                            type="checkbox"
+                            data-condition="nausea"
+                        >
 
                     </label>
 
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="sleepiness">
                             眠気
                         </span>
 
-                        <input type="checkbox" data-condition="sleepiness">
+                        <input
+                            type="checkbox"
+                            data-condition="sleepiness"
+                        >
 
                     </label>
 
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="fatigue">
                             倦怠感
                         </span>
 
-                        <input type="checkbox" data-condition="fatigue">
+                        <input
+                            type="checkbox"
+                            data-condition="fatigue"
+                        >
 
                     </label>
 
 
                     <label class="symptom-item">
 
-                        <span>
+                        <span data-condition-label="headache">
                             頭痛
                         </span>
 
-                        <input type="checkbox" data-condition="headache">
+                        <input
+                            type="checkbox"
+                            data-condition="headache"
+                        >
 
                     </label>
 
@@ -359,26 +591,45 @@
                     メモ
                 </h2>
 
-                <textarea id="memo-input" placeholder="自由に入力してください"></textarea>
+                <textarea
+                    id="memo-input"
+                    placeholder="自由に入力してください"
+                ></textarea>
 
             </section>
 
 
             <!-- 保存・消去メッセージ -->
 
-            <p id="save-message" class="save-message" role="status" aria-live="polite">
+            <p
+                id="save-message"
+                class="save-message"
+                role="status"
+                aria-live="polite"
+            >
             </p>
 
 
             <!-- クリア・記録ボタン -->
 
-            <div id="record-action-bar" class="record-action-bar">
+            <div
+                id="record-action-bar"
+                class="record-action-bar"
+            >
 
-                <button type="button" id="clear-button" class="record-action-button clear-button">
+                <button
+                    type="button"
+                    id="clear-button"
+                    class="record-action-button clear-button"
+                >
                     クリア
                 </button>
 
-                <button type="button" id="save-button" class="record-action-button save-button">
+                <button
+                    type="button"
+                    id="save-button"
+                    class="record-action-button save-button"
+                >
                     記録
                 </button>
 
@@ -391,7 +642,11 @@
              ② 一覧で確認
         ================================================== -->
 
-        <section id="list-page" class="page" hidden>
+        <section
+            id="list-page"
+            class="page"
+            hidden
+        >
 
             <div class="records-header">
 
@@ -399,7 +654,11 @@
                     記録
                 </h1>
 
-                <button type="button" id="print-button" class="print-button">
+                <button
+                    type="button"
+                    id="print-button"
+                    class="print-button"
+                >
                     PDFで印刷
                 </button>
 
@@ -420,7 +679,10 @@
 
                         開始日
 
-                        <input type="date" id="list-start-date">
+                        <input
+                            type="date"
+                            id="list-start-date"
+                        >
 
                     </label>
 
@@ -432,11 +694,18 @@
 
                         終了日
 
-                        <input type="date" id="list-end-date">
+                        <input
+                            type="date"
+                            id="list-end-date"
+                        >
 
                     </label>
 
-                    <button type="button" id="update-list-button" class="update-list-button">
+                    <button
+                        type="button"
+                        id="update-list-button"
+                        class="update-list-button"
+                    >
                         表示
                     </button>
 
@@ -449,7 +718,10 @@
 
             <div class="records-table-wrapper">
 
-                <table id="records-table" class="records-table">
+                <table
+                    id="records-table"
+                    class="records-table"
+                >
 
                     <colgroup>
 
@@ -512,29 +784,29 @@
                                 気分
                             </th>
 
-                            <th>
+                            <th data-condition-heading="dizziness">
                                 めまい<br>
                                 ふらつき
                             </th>
 
-                            <th>
+                            <th data-condition-heading="irritation">
                                 イライラ
                             </th>
 
-                            <th>
+                            <th data-condition-heading="nausea">
                                 吐気<br>
                                 腹痛
                             </th>
 
-                            <th>
+                            <th data-condition-heading="sleepiness">
                                 眠気
                             </th>
 
-                            <th>
+                            <th data-condition-heading="fatigue">
                                 倦怠感
                             </th>
 
-                            <th>
+                            <th data-condition-heading="headache">
                                 頭痛
                             </th>
 
@@ -554,7 +826,11 @@
             </div>
 
 
-            <p id="no-records-message" class="no-records-message" hidden>
+            <p
+                id="no-records-message"
+                class="no-records-message"
+                hidden
+            >
                 記録はありません
             </p>
 
@@ -565,7 +841,11 @@
              ③ 推移を確認
         ================================================== -->
 
-        <section id="trend-page" class="page" hidden>
+        <section
+            id="trend-page"
+            class="page"
+            hidden
+        >
 
             <div class="trend-header">
 
@@ -573,7 +853,11 @@
                     睡眠＆体調の推移
                 </h1>
 
-                <button type="button" id="trend-print-button" class="trend-print-button">
+                <button
+                    type="button"
+                    id="trend-print-button"
+                    class="trend-print-button"
+                >
                     PDFで印刷
                 </button>
 
@@ -594,7 +878,10 @@
 
                         開始日
 
-                        <input type="date" id="trend-start-date">
+                        <input
+                            type="date"
+                            id="trend-start-date"
+                        >
 
                     </label>
 
@@ -606,11 +893,18 @@
 
                         終了日
 
-                        <input type="date" id="trend-end-date">
+                        <input
+                            type="date"
+                            id="trend-end-date"
+                        >
 
                     </label>
 
-                    <button type="button" id="update-trend-button" class="update-trend-button">
+                    <button
+                        type="button"
+                        id="update-trend-button"
+                        class="update-trend-button"
+                    >
                         表示
                     </button>
 
@@ -654,6 +948,7 @@
 
             </section>
 
+
             <!-- 睡眠満足度の推移 -->
 
             <section class="trend-block">
@@ -694,7 +989,6 @@
 
             </section>
 
-
         </section>
 
     </main>
@@ -706,24 +1000,41 @@
 
     <nav class="bottom-nav">
 
-        <button type="button" id="record-nav-button" class="bottom-nav-button record-nav active">
+        <button
+            type="button"
+            id="record-nav-button"
+            class="bottom-nav-button record-nav active"
+        >
             記録をつける
         </button>
 
-        <button type="button" id="list-nav-button" class="bottom-nav-button list-nav">
+        <button
+            type="button"
+            id="list-nav-button"
+            class="bottom-nav-button list-nav"
+        >
             一覧で確認
         </button>
 
-        <button type="button" id="trend-nav-button" class="bottom-nav-button trend-nav">
+        <button
+            type="button"
+            id="trend-nav-button"
+            class="bottom-nav-button trend-nav"
+        >
             推移を確認
         </button>
 
     </nav>
 
+
+    <!-- グラフ用ライブラリ -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="script.js"></script>
 
+    <!-- アプリ本体 -->
+
+    <script src="script.js?v=3"></script>
 
 </body>
 
